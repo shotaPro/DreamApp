@@ -19,37 +19,35 @@
                 @csrf
                 <textarea style="width:500px; height:200px;" name="message" placeholder="メッセージを自由に投稿しましょう"></textarea>
                 <br>
-                <span style="color: red; font-weight: bold">※必須</span><input name="image" class="btn btn-primary"type="file">
+                ※必須<input name="image" class="btn btn-primary"type="file">
                 <button type="submit" class="btn btn-secondary">送信する</button>
             </form>
 
 
             <h1 style="margin-top: 20px">全ての投稿</h1>
-            @foreach ($post as $post)
+            @foreach ($search_post as $search_post)
                 <div style="margin-top: 30px;">
                     <div class="card" style="width: 600px; margin: auto;">
-                        <h1><a href="{{ url('profiles', $post->postBy) }}">{{ $post->postByName }}</a></h1>
-                        <img src="/post/{{ $post->image }}" class="card-img-top" alt="...">
+                        <img src="/post/{{ $search_post->image }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"></h5>
-                            <p class="card-text">{{ $post->message }}</p>
+                            <p class="card-text">{{ $search_post->message }}</p>
                             <a class="btn btn-primary" href="javascript:void(0);" onclick="reply(this)"
-                                data-postid="{{ $post->id }}">返信する</a>
-                            @if ($user_id == $post->postBy)
+                                data-postid="{{ $search_post->id }}">返信する</a>
+                            @if($user_id == $search_post->postBy)
                                 <a class="btn btn-danger" onclick="return confirm('本当に削除してもよろしいですか？')"
-                                    href="{{ url('delete_post', $post->id) }}">削除する</a>
-                                <a class="btn btn-secondary" href="{{ url('edit_show', $post->id) }}">編集する</a>
+                                    href="{{ url('delete_post', $search_post->id) }}">削除する</a>
+                                <a class="btn btn-secondary" href="{{ url('edit_show', $search_post->id) }}">編集する</a>
                             @endif
                         </div>
                         @foreach ($reply as $replys)
-                            @if ($replys->reply_id == $post->id)
-                                <div style="padding-Left: 3%; padding_bottom: 10px; padding_bottom: 10px;">
-                                    <b>{{ $replys->name }}</b>
-                                    <p>{{ $replys->reply_message }}</p>
-                                    <a style="color: blue"href="javascript::void(0)" onclick="reply(this)"
-                                        data-postid="">返信する</a>
-                                </div>
-                            @endif
+                        @if($replys->reply_id == $search_post->id)
+                        <div style="padding-Left: 3%; padding_bottom: 10px; padding_bottom: 10px;">
+                            <b>{{ $replys->name }}</b>
+                            <p>{{ $replys->reply_message }}</p>
+                            <a style="color: blue"href="javascript::void(0)" onclick="reply(this)" data-postid="">返信する</a>
+                        </div>
+                        @endif
                         @endforeach
                     </div>
                 </div>

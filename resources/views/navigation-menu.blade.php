@@ -7,7 +7,6 @@
 
                 <nav class="navbar navbar-expand-lg navbar-light">
                     <div class="container-fluid">
-                        <a class="navbar-brand" href="#">Navbar</a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                             aria-label="Toggle navigation">
@@ -16,18 +15,23 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                                    <a class="nav-link active" aria-current="page" href="{{ url('/redirect') }}">Home</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="{{ url('user_profile') }}">プロフィール</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">あなたの投稿</a>
+                                    <a class="nav-link active" aria-current="page" href="{{ url('my_post') }}">あなたの投稿</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ url('study_watch') }}">勉強タイマ機能</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ url('study_rank') }}">学習時間ランキング</a>
                                 </li>
                             </ul>
-                            <form class="d-flex">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit">Search</button>
+                            <form action="{{ url('search_post') }}" method="GET" actionclass="d-flex">
+                                <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
                             </form>
                         </div>
                     </div>

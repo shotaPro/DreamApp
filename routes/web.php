@@ -26,6 +26,33 @@ Route::post('update_profile/{id}', [HomeController::class, 'update_profile']);
 
 Route::post('post_message', [HomeController::class, 'post_message']);
 
+Route::get('edit_show/{id}', [HomeController::class, 'edit_show']);
+
+Route::post('edit_message/{id}', [HomeController::class, 'edit_message']);
+
+Route::get('delete_post/{id}', [HomeController::class, 'delete_post']);
+
+Route::post('reply_post', [HomeController::class, 'reply_post']);
+
+Route::get('search_post', [HomeController::class, 'search_post']);
+
+Route::get('follow', [HomeController::class, 'follow']);
+
+Route::get('unfollow', [HomeController::class, 'unfollow']);
+
+Route::get('my_post', [HomeController::class, 'my_post']);
+
+Route::get('study_watch', [HomeController::class, 'study_watch']);
+
+Route::post('record_timer', [HomeController::class, 'record_timer']);
+
+Route::get('profiles/{id}', [HomeController::class, 'profiles']);
+
+Route::get('study_rank', [HomeController::class, 'study_rank']);
+
+
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),

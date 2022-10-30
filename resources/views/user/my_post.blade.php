@@ -19,7 +19,7 @@
                 @csrf
                 <textarea style="width:500px; height:200px;" name="message" placeholder="メッセージを自由に投稿しましょう"></textarea>
                 <br>
-                <span style="color: red; font-weight: bold">※必須</span><input name="image" class="btn btn-primary"type="file">
+                ※必須<input name="image" class="btn btn-primary"type="file">
                 <button type="submit" class="btn btn-secondary">送信する</button>
             </form>
 
@@ -28,7 +28,6 @@
             @foreach ($post as $post)
                 <div style="margin-top: 30px;">
                     <div class="card" style="width: 600px; margin: auto;">
-                        <h1><a href="{{ url('profiles', $post->postBy) }}">{{ $post->postByName }}</a></h1>
                         <img src="/post/{{ $post->image }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"></h5>
