@@ -231,8 +231,9 @@ class HomeController extends Controller
     {
         $user_id = Auth::user()->id;
         $ranking_info = timer::selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(study_time))) as study_total_time')->
-        join('users', 'timers.user_id', '=', 'users.id')->select('users.name', DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(study_time))) as study_total_time'))->where('user_id', '=', $user_id)->groupBy('users.id')->get();
+        join('users', 'timers.user_id', '=', 'users.id')->select('users.name', DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(study_time))) as study_total_time'))->groupBy('users.id')->orderBy('study_total_time', 'DESC')->get();
 
-        // return view('users.study_ranking', compact('ranking_info'));
+        return view('user.study_ranking', compact('ranking_info'));
+
     }
 }
