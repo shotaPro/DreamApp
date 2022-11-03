@@ -58,4 +58,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function follows(){
+       return $this->hasMany(Follow::class, 'sender', 'id');
+    }
+
+       // フォローしているか
+   public function isFollowing($id)
+   {
+       return (boolean) $this->follows()->where('receiver', $id)->first();
+   }
 }

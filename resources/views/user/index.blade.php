@@ -28,7 +28,18 @@
             @foreach ($post as $post)
                 <div style="margin-top: 30px;">
                     <div class="card" style="width: 600px; margin: auto;">
-                        <h1><a href="{{ url('profiles', $post->postBy) }}">{{ $post->postByName }}</a></h1>
+                        <h1>
+                            <a href="{{ url('profiles', $post->postBy) }}">{{ $post->postByName }}</a>
+                            @if($post->postBy != $user_id)
+
+                            @if(Auth::user()->isFollowing($post->postBy))
+                            <h6><a href="{{ url('unfollow', $post->postBy) }}">フォローをやめる</a></h6>
+                            @else
+                            <h6><a href="{{ url('follow', $post->postBy) }}">フォローする</a></h6>
+                            @endif
+
+                            @endif
+                        </h1>
                         <img src="/post/{{ $post->image }}" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title"></h5>

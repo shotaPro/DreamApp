@@ -50,6 +50,10 @@ Route::get('profiles/{id}', [HomeController::class, 'profiles']);
 
 Route::get('study_rank', [HomeController::class, 'study_rank']);
 
+Route::get('follow/{id}', [HomeController::class, 'follow']);
+
+Route::get('unfollow/{id}', [HomeController::class, 'unfollow']);
+
 
 
 

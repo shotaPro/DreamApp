@@ -11,6 +11,7 @@ use App\Models\Reply;
 use App\Models\Follow;
 use App\Models\User;
 use App\Models\Timer;
+
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -23,8 +24,13 @@ class HomeController extends Controller
             $post = post::all();
             $user_id = Auth::user()->id;
             $reply = reply::all();
+            // $users = User::where('id', '=', $user_id)->first();
+            // $follows_info = $users->follows;
+
 
             return view('user.index', compact('post', 'user_id', 'reply'));
+
+
         } else {
 
             return view('index');
@@ -230,10 +236,36 @@ class HomeController extends Controller
     public function study_rank()
     {
         $user_id = Auth::user()->id;
-        $ranking_info = timer::selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(study_time))) as study_total_time')->
-        join('users', 'timers.user_id', '=', 'users.id')->select('users.name', DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(study_time))) as study_total_time'))->groupBy('users.id')->orderBy('study_total_time', 'DESC')->get();
+        $ranking_info = timer::selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(study_time))) as study_total_time')->join('users', 'timers.user_id', '=', 'users.id')->select('users.name', DB::raw('SEC_TO_TIME(SUM(TIME_TO_SEC(study_time))) as study_total_time'))->groupBy('users.id')->orderBy('study_total_time', 'DESC')->get();
 
         return view('user.study_ranking', compact('ranking_info'));
+    }
 
+    public function follow(Request $request, $id)
+    {
+        $follow = new Follow();
+        $follow->sender = Auth::user()->id;
+        $follow->receiver = $id;
+
+        $follow->save();
+
+        return redirect()->back();
+    }
+
+    public function unfollow($id)
+    {
+
+        $user_id = Auth::user()->id;
+        $users = User::where('id', '=', $user_id)->first();
+
+        $follows_info = $users->follows;
+
+        foreach($follows_info as $follow_info){
+            $result = follow::where('sender', "=", $user_id)->where('receiver', "=", $follow_info->receiver)->get();
+        }
+
+        $result->each->delete();
+
+        return redirect()->back();
     }
 }
