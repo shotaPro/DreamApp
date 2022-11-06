@@ -29,8 +29,6 @@ class HomeController extends Controller
 
 
             return view('user.index', compact('post', 'user_id', 'reply'));
-
-
         } else {
 
             return view('index');
@@ -260,12 +258,24 @@ class HomeController extends Controller
 
         $follows_info = $users->follows;
 
-        foreach($follows_info as $follow_info){
+        foreach ($follows_info as $follow_info) {
             $result = follow::where('sender', "=", $user_id)->where('receiver', "=", $follow_info->receiver)->get();
         }
 
         $result->each->delete();
 
         return redirect()->back();
+    }
+
+    public function follow_list()
+    {
+        $user_id = Auth::user()->id;
+        $following_lists = follow::join('users', 'users.id', '=', 'follows.sender')->where('sender', "=", $user_id)->get();
+
+        // $following_lists = follow::join('users', 'users.id', '=', 'follows.receiver')->where('receiver', "=", $following_lists->receiver)->get();
+
+
+        return view('user.following_list', compact('following_lists'));
+
     }
 }

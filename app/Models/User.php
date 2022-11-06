@@ -59,13 +59,23 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function follows(){
-       return $this->hasMany(Follow::class, 'sender', 'id');
+
+    public function follows()
+    {
+        return $this->hasMany(Follow::class, 'sender', 'id');
     }
 
-       // フォローしているか
-   public function isFollowing($id)
-   {
-       return (boolean) $this->follows()->where('receiver', $id)->first();
-   }
+    // フォローしているか
+    public function isFollowing($id)
+    {
+        return (bool) $this->follows()->where('receiver', '=', $id)->first();
+    }
+
+    public function following_list($id)
+    {
+
+        return $this->follows()->join('users', 'users.id', 'follows.receiver')->where('receiver', '=', $id)->get();
+        // return $this->follows()->join('users', 'users.id', 'follows.')
+        // return $this->follows()->join('profiles', 'profiles.user_id', 'follows.receiver')->join('users', 'users.id', 'profiles.user_id')->where('receiver', '=', $id)->get();
+    }
 }

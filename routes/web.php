@@ -54,6 +54,8 @@ Route::get('follow/{id}', [HomeController::class, 'follow']);
 
 Route::get('unfollow/{id}', [HomeController::class, 'unfollow']);
 
+Route::get('follow_list', [HomeController::class, 'follow_list']);
+
 
 
 

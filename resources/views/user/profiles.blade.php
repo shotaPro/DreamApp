@@ -27,6 +27,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">プロフィール</h4>
                         </div>
+                        @if($profile->isNotEmpty())
                         @foreach ($profile as $profile)
                             <div class="row mt-2">
                                 <div class="col-md-6"><label class="labels">ニックネーム</label>
@@ -45,11 +46,16 @@
                                 </div>
                             </div>
                         @endforeach
+                        @else
+                        <div class="row mt-2">
+                            <h2>プロフィール設定がされていません</label></div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
 
-            <h1 style="margin-top: 20px">{{ $profile->username }}の投稿</h1>
+            <h1 class="text-center" style="margin-top: 20px">投稿一覧</h1>
             @foreach ($post as $post)
                 <div style="margin-top: 30px;">
                     <div class="card text-center" style="width: 600px; margin: auto;">

@@ -29,6 +29,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="{{ url('study_rank') }}">学習時間ランキング</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ url('follow_list') }}">フォローリスト</a>
+                                </li>
                             </ul>
                             <form action="{{ url('search_post') }}" method="GET" actionclass="d-flex">
                                 <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
@@ -117,9 +120,9 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                            {{-- <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
-                            </x-jet-dropdown-link>
+                            </x-jet-dropdown-link> --}}
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
