@@ -22,9 +22,12 @@
             @foreach ($following_list as $following_list)
                 <div class="card" style="width: 300px; margin: auto;">
                     <div class="card-body text-center">
-                        <a href="{{ url('profiles', $following_list->receiver) }}"><span>ユーザー名: {{ $following_list->name }}</span></a>
-                        <h5 class="card-title"></h5> <br>
-                        <p></p>
+                        <h3>
+                            ユーザー名: <a
+                                href="{{ url('profiles', $following_list->receiver) }}"><span>{{ $following_list->name }}</span></a>
+                        </h3>
+                        <br>
+                        <a class="btn btn-primary"href="{{ url('unfollow', $following_list->id) }}">フォローをやめる</a>
                     </div>
                 </div>
             @endforeach

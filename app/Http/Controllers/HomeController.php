@@ -11,6 +11,7 @@ use App\Models\Reply;
 use App\Models\Follow;
 use App\Models\User;
 use App\Models\Timer;
+use App\Models\goal;
 
 use Illuminate\Support\Facades\DB;
 
@@ -254,15 +255,11 @@ class HomeController extends Controller
     {
 
         $user_id = Auth::user()->id;
-        $users = User::where('id', '=', $user_id)->first();
+        $users = User::where('id', '=', $id)->first();
 
-        $follows_info = $users->follows;
+        $result = follow::where('sender', "=", $user_id)->where('receiver', "=", $users->id)->first();
 
-        foreach ($follows_info as $follow_info) {
-            $result = follow::where('sender', "=", $user_id)->where('receiver', "=", $follow_info->receiver)->get();
-        }
-
-        $result->each->delete();
+        $result->delete();
 
         return redirect()->back();
     }
@@ -276,6 +273,42 @@ class HomeController extends Controller
 
 
         return view('user.following_list', compact('following_lists'));
+    }
+
+    public function my_goal_week()
+    {
+        $user_id = Auth::user()->id;
+        $user_goal_infos = goal::where('user_id', '=', $user_id)->get();
+
+        return view('user.my_goal_week', compact('user_goal_infos'));
+    }
+
+    public function goal_this_week(Request $request)
+    {
+        $my_goal_this_week = new goal();
+        $user_id = Auth::user()->id;
+
+        $my_goal_this_week->user_id = $user_id;
+
+        if ($request->goal_this_week != "") {
+
+            $my_goal_this_week->goal_this_week = $request->goal_this_week;
+        } else {
+
+            return redirect()->back()->with('message', '目標が入力されていません');
+        }
+
+        $my_goal_this_week->save();
+
+        return redirect()->back();
+    }
+
+    public function delete_goal_this($id)
+    {
+        $delete_task = goal::find($id);
+        $delete_task->delete();
+
+        return redirect()->back();
 
     }
 }

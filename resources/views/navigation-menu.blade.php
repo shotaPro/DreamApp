@@ -24,6 +24,9 @@
                                     <a class="nav-link active" aria-current="page" href="{{ url('my_post') }}">あなたの投稿</a>
                                 </li>
                                 <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ url('my_goal_week') }}">今週の目標</a>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link active" aria-current="page" href="{{ url('study_watch') }}">勉強タイマ機能</a>
                                 </li>
                                 <li class="nav-item">

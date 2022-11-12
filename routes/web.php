@@ -38,8 +38,6 @@ Route::get('search_post', [HomeController::class, 'search_post']);
 
 Route::get('follow', [HomeController::class, 'follow']);
 
-Route::get('unfollow', [HomeController::class, 'unfollow']);
-
 Route::get('my_post', [HomeController::class, 'my_post']);
 
 Route::get('study_watch', [HomeController::class, 'study_watch']);
@@ -55,6 +53,12 @@ Route::get('follow/{id}', [HomeController::class, 'follow']);
 Route::get('unfollow/{id}', [HomeController::class, 'unfollow']);
 
 Route::get('follow_list', [HomeController::class, 'follow_list']);
+
+Route::get('my_goal_week', [HomeController::class, 'my_goal_week']);
+
+Route::post('goal_this_week', [HomeController::class, 'goal_this_week']);
+
+Route::get('delete_goal_this/{id}', [HomeController::class, 'delete_goal_this']);
 
 
 
